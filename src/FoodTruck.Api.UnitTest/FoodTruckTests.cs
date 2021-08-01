@@ -61,7 +61,7 @@ namespace FoodTruck.Api.UnitTest
         {
             var mockFoodTruckDto = new Models.FoodTruckDto { LocationId = "xx" };
             var cts = new CancellationTokenSource();
-            mock.Setup(c => c.CreateFoodTruck(mockFoodTruckDto, cts.Token)).Returns(Task.FromResult(new List<ValidationResult>()));
+            mock.Setup(c => c.CreateFoodTruck(mockFoodTruckDto, cts.Token)).Returns(Task.FromResult((new List<ValidationResult>(), new Models.FoodTruck())));
             var badResponse = await _foodTruckController.CreateFoodTruck(mockFoodTruckDto, cts.Token);
             Assert.IsType<CreatedResult>(badResponse);
         }

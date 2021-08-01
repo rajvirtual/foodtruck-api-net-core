@@ -39,13 +39,13 @@ namespace FoodTruck.Api.Services
             return await _foodTruckContext.FoodTrucks.AnyAsync(f => f.LocationId == locationId, cancellationToken);
         }
 
-        public async Task<List<ValidationResult>> CreateFoodTruck(Models.FoodTruckDto foodTruckDto, CancellationToken cancellationToken)
+        public async Task<(List<ValidationResult>, Models.FoodTruck)> CreateFoodTruck(Models.FoodTruckDto foodTruckDto, CancellationToken cancellationToken)
         {
             var errors = ValidateInput(foodTruckDto);
 
             if (errors.Any())
             {
-                return errors;
+                return (errors, null);
             }
 
             var mappedFoodTruck = _mapper.Map<Models.FoodTruck>(foodTruckDto);
@@ -56,6 +56,8 @@ namespace FoodTruck.Api.Services
 
             mappedFoodTruck.Received = dateTimeOffset.Date;
 
+            mappedFoodTruck.ExpirationDate = null;
+
             mappedFoodTruck.Location = $"({foodTruckDto.Latitude},{foodTruckDto.Longitude})";
 
             await _foodTruckContext.FoodTrucks.AddAsync(mappedFoodTruck, cancellationToken);
@@ -64,7 +66,7 @@ namespace FoodTruck.Api.Services
 
             _logger.LogInformation("Food Truck was created {LocationId}", foodTruckDto.LocationId);
 
-            return errors;
+            return (errors, mappedFoodTruck);
 
         }
 

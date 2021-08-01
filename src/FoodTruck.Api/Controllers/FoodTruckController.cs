@@ -108,14 +108,14 @@ namespace FoodTruck.Api.Controllers
                     return BadRequest("Food Truck cannot be null.");
                 }
 
-                var errors = await _foodTruckService.CreateFoodTruck(foodTruckDto, cancellationToken);
+                var (errors, foodTruck) = await _foodTruckService.CreateFoodTruck(foodTruckDto, cancellationToken);
 
                 if (errors.Any())
                 {
                     return BadRequest(errors);
                 }
 
-                return Created($"/{nameof(CreateFoodTruck)}/{foodTruckDto.LocationId}", foodTruckDto);
+                return Created($"/{nameof(CreateFoodTruck)}/{foodTruckDto.LocationId}", foodTruck);
             }
             catch (Exception ex)
             {

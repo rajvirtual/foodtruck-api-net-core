@@ -29,7 +29,7 @@ namespace FoodTruck.Api.UnitTest
             var cts = new CancellationTokenSource();
 
             //Act
-            var errors = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
+            var (errors, _) = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
 
             //Assert
             Assert.Equal("Location Id already exists.", errors[0].ErrorMessage);
@@ -43,7 +43,7 @@ namespace FoodTruck.Api.UnitTest
             var cts = new CancellationTokenSource();
 
             //Act
-            var errors = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
+            var (errors, _) = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
 
             //Assert
             Assert.Equal("Location Id cannot be empty.", errors[0].ErrorMessage);
@@ -58,8 +58,8 @@ namespace FoodTruck.Api.UnitTest
             var cts = new CancellationTokenSource();
 
             //Act
-            var errors = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
-          
+            var (errors, _) = await _foodTruckService.CreateFoodTruck(mockFoodTruckDto, cts.Token);
+
             //Assert
             Assert.Equal("Latitude must be between -90 and 90 degrees.", errors[0].ErrorMessage);
         }

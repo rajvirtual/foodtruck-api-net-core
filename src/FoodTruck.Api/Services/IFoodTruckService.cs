@@ -11,7 +11,7 @@ namespace FoodTruck.Api.Services
 
         public Task<IEnumerable<Models.FoodTruck>> GetByBlock(string block, CancellationToken cancellationToken);
 
-        public Task<List<ValidationResult>> CreateFoodTruck(Models.FoodTruckDto foodTruckDto, CancellationToken cancellationToken);
+        public Task<(List<ValidationResult>, Models.FoodTruck)> CreateFoodTruck(Models.FoodTruckDto foodTruckDto, CancellationToken cancellationToken);
 
         public Task<bool> FoodTruckExists(string locationId, CancellationToken cancellationToken);
     }
