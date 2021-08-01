@@ -26,6 +26,14 @@ namespace FoodTruck.Api.Controllers
             _foodTruckService = foodTruckService;
         }
 
+        /// <summary>
+        /// Retrieve a food truck based on the locationid field. 
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Food Truck</returns>
+        /// <response code="404">If food truck cannot be found.</response>  
+        /// <response code="400">If the location id parameter is null.</response>
         [HttpGet]
         [Route("GetByLocationId/{locationId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -47,7 +55,13 @@ namespace FoodTruck.Api.Controllers
 
             return NotFound($"Food Truck not found for Location Id {locationId}");
         }
-
+        /// <summary>
+        /// Get all food trucks for a given block.
+        /// </summary>
+        /// <param name="block"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A List of Food Trucks.</returns>
+        /// <response code="404">If the food trucks list returned is null.</response>            
         [HttpGet]
         [Route("GetByBlock")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -63,6 +77,23 @@ namespace FoodTruck.Api.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Add a new food truck.
+        /// </summary>
+        /// <param name="foodTruckDto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>void</returns>
+        /// <response code="201">Returns the newly created food truck.</response>
+        /// <response code="400">
+        /// 
+        /// If the food truck parameter is null.
+        /// 
+        /// If the food truck location id already exists.
+        /// 
+        /// If the Latitude not between -90 and 90 degrees.
+        /// 
+        /// If the Longitude not between -180 and 180 degrees.
+        /// </response>
         [HttpPost]
         [Route(nameof(CreateFoodTruck))]
         [ProducesResponseType(StatusCodes.Status201Created)]
