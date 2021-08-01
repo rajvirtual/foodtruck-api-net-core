@@ -58,6 +58,11 @@ namespace FoodTruck.Api.Services
 
             mappedFoodTruck.ExpirationDate = null;
 
+            if (foodTruckDto.Block == null)
+            {
+                mappedFoodTruck.Block = "";
+            }
+
             mappedFoodTruck.Location = $"({foodTruckDto.Latitude},{foodTruckDto.Longitude})";
 
             await _foodTruckContext.FoodTrucks.AddAsync(mappedFoodTruck, cancellationToken);
