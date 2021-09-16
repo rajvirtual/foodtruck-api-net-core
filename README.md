@@ -2,7 +2,6 @@
 
 A .Net Core Web Api to locate San Francisco Food Trucks.
 
-[Demo Site](https://foodtruckapideploy.azurewebsites.net/swagger/index.html)
 
 ### How it works
 
